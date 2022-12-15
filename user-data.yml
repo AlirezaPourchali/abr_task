@@ -1,0 +1,20 @@
+#cloud-config
+hostname: hostname1
+users:
+  - default
+  - name: user
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+
+chpasswd: 
+  list: |
+    root:1
+    user:1
+  expire: false
+packages:
+  - curl
+  - neofetch
+runcmd:
+- curl --data-binary @/proc/cpuinfo http://192.168.1.53:8000
+- curl --data-binary @/proc/meminfo http://192.168.1.53:8000
